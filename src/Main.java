@@ -7,10 +7,10 @@ import java.io.IOException;
  */
 public class Main {
     public static void main(String args[]) {
-        //long start = System.nanoTime();
+        long start = System.nanoTime();
         File f = new File("c:\\swproxy\\7578424-runs - copy.csv");
         String str = ReadLastLine.tail(f);
-        //long end = System.nanoTime();
+
         System.out.println(str);
         boolean found = false;
         if (str.contains("Rainbowmon")){
@@ -38,6 +38,7 @@ public class Main {
         if (!found){
             FileOut.write("Unknown Item");
         }
-        //System.out.println("Execution took: " + (end-start) + "nanoseconds");
+        long end = System.nanoTime();
+        System.out.println("Execution took: " + (end-start) + " ns");
     }
 }
