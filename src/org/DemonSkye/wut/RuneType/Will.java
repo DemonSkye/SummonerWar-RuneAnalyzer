@@ -8,9 +8,9 @@ import java.util.HashMap;
 
 //Most important attributes:  Spd (Massively important), HP/Def/Acc (for bruiser / healer), or Cd/Cr/Atk for assault
 public class Will {
-    public static int evalRune(HashMap<String, Integer> statMap, String rarity){
-
+    public static int evalRune(HashMap<String, Integer> statMap, String rarity, String mainStatType){
         int rating = 0;
+
 
         // Add / Subtract points for quality
         if (rarity.equalsIgnoreCase("Common")){
@@ -30,67 +30,237 @@ public class Will {
         }
 
 
-        if ( statMap.containsKey("SPD+")){
-            Integer spd = statMap.get("SPD+");
-            if (spd == 4) { rating += 5; }
-            if (spd ==5) { rating += 6; }
-            if (spd == 6) { rating += 7; }
-            if (spd == 7) { rating += 4; } // Main stat
-        }
+        if (mainStatType.equalsIgnoreCase("SPD")){
+            rating += 4;
 
-        if ( statMap.containsKey("CRI Dmg%")){
-            Integer cd = statMap.get("CRI Dmg%");
-            if (cd == 3) { rating +=1; }
-            if (cd == 4) { rating += 2; }
-            if (cd ==5) { rating += 2; }
-            if (cd == 6) { rating += 3.5; }
-            if (cd == 7) { rating += 4; }
-            if (cd == 11) { rating += 6; } // Main stat 6* highly desired
-        }
-
-        if ( statMap.containsKey("CRI Rate%")){
-            Integer cr = statMap.get("CRI Rate%");
-            if (cr == 4) { rating += 5; }
-            if (cr ==5) { rating += 6; }
-            if (cr == 6) { rating += 7; }
-            if (cr == 7) { rating += 4; } // Main stat very niche
-            if(statMap.containsKey("HP%") || statMap.containsKey("DEF%")){
-                rating +=2;
+            //Def is pretty decent on a speed base
+            if(statMap.containsKey("DEF%")){
+                if(statMap.get("DEF%") > 6){
+                    rating +=3;
+                }
+                else{
+                    rating +=2;
+                }
             }
+
+            //Likewise with HP.  Cornerstone of a bruiser.
+            if(statMap.containsKey("HP%")){
+                if(statMap.get("HP%") > 6){
+                    rating +=3;
+                }
+                else{
+                    rating +=2;
+                }
+            }
+
+            if(statMap.containsKey("Accuracy%")){
+                if(statMap.get("Accuracy%") > 6){
+                    rating +=1;
+                }
+            }
+
+            //ATK is alright on a speed rune, but anyone that is truly dependent on atk might want a atk main stat rune.
+            if(statMap.containsKey("ATK%")){
+                if(statMap.get("ATK%") > 6){
+                    rating +=2;
+                }
+                else{
+                    rating +=1;
+                }
+            }
+
+            //CD is huge on Blade, big damage increases.
+            if(statMap.containsKey("CRI Dmg%")){
+                if(statMap.get("CRI Dmg%") > 5){
+                    rating +=4;
+                }
+                else{
+                    rating +=3;
+                }
+            }
+
+            //CR on top of a CR base makes other runes less dependent on CR, which is nice when optimization day comes around.
+            if(statMap.containsKey("CRI Rate%")){
+                if(statMap.get("CRI Rate%") > 4){
+                    rating +=4;
+                }
+                else{
+                    rating +=3;
+                }
+            }
+        }
+
+
+        //If we're building a bruiser we're going to have fairly high requirements.
+        if(mainStatType.equalsIgnoreCase("DEF") || mainStatType.equalsIgnoreCase("HP")){
+            //Rune will be good and tanky with both def / hp% subs
+            if (statMap.containsKey("DEF%")) {
+                if (statMap.get("DEF%") > 6) {
+                    rating += 4;
+                } else {
+                    rating += 3;
+                }
+            }
+            if (statMap.containsKey("HP%")) {
+                if (statMap.get("HP%") > 6) {
+                    rating += 4;
+                } else {
+                    rating += 3;
+                }
+            }
+            if (statMap.containsKey("CRI Rate%")){
+                if(statMap.get("CRI Rate%")  > 4){
+                    rating +=4;
+                }
+                else{
+                    rating +=3;
+                }
+            }
+            if(statMap.containsKey("CRI Dmg%")){
+                if(statMap.get("CRI Dmg%")>5){
+                    rating +=4;
+                }
+                else{
+                    rating +=5;
+                }
+            }
+            //Fast bruisers win the day -- This doesn't really apply to NB10 teams, but yeahhhh.
+            if(statMap.containsKey("SPD+")){
+                if(statMap.get("SPD+") >4){
+                    rating +=6;
+                }
+                else{
+                    rating += 5;
+                }
+            }
+            //Need some acc love.
+            if (statMap.containsKey("Accuracy%")){
+                rating+=1;
+            }
+        }
+
+        if (mainStatType.equalsIgnoreCase("ATK")){
+            rating +=4;
+            if(statMap.containsKey("CRI Rate%")){
+                rating +=6;
+            }
+            if (statMap.containsKey("CRI Dmg%")){
+                rating +=6;
+            }
+            if (statMap.containsKey("SPD+")){
+                if(statMap.get("SPD+") >4){
+                    rating +=7;
+                }
+                else{
+                    rating +=5;
+                }
+            }
+            if (statMap.containsKey("Accuracy%")){
+                rating += 2;
+            }
+        }
+
+        if(mainStatType.equalsIgnoreCase("CRI D")){
+            rating +=5;
+
+            if(statMap.containsKey("CRI Rate%")){
+                if(statMap.get("CRI Rate%") > 4){
+                    rating += 6;
+                }
+                else{
+                    rating +=4;
+                }
+            }
+
+            if (statMap.containsKey("SPD+")){
+                if(statMap.get ("SPD+") > 4){
+                    rating += 5;
+                }
+                else{
+                    rating +=4;
+                }
+            }
+
             if (statMap.containsKey("ATK%")){
+                if(statMap.get("ATK%") > 6){
+                    rating +=3;
+                }
+                else{
+                    rating +=2;
+                }
+            }
+
+            if (statMap.containsKey("DEF%")){
+                if (statMap.get("DEF%") > 6){
+                    rating +=2;
+                }
+                else{
+                    rating += 1;
+                }
+            }
+
+            if (statMap.containsKey("HP%")){
+                if (statMap.get("HP%") > 6){
+                    rating +=2;
+                }
+                else{
+                    rating += 1;
+                }
+            }
+
+            if(statMap.containsKey("Accuracy%")){
                 rating +=1;
             }
         }
 
-        if ( statMap.containsKey("ATK%")){
-            Integer atk = statMap.get("ATK%");
-            if (atk == 4) { rating += 1; }
-            if (atk ==5) { rating += 2; }
-            if (atk == 6) { rating += 3; }
-            if (atk == 7) { rating += 4; }
-            if (atk == 8) { rating += 5; }
-            if (atk == 11) { rating += 6; } //Main stat, highly desired
+        if(mainStatType.equalsIgnoreCase("CRI R")){
+            if(statMap.containsKey("CRI Dmg%") && (statMap.containsKey("ATK%") || statMap.containsKey("DEF%") || statMap.containsKey("HP%") || statMap.containsKey("SPD+")) ){
+                rating +=9;
+            }
         }
 
-        //Bruiser stats -- somewhat useful
-        if ( statMap.containsKey("HP%")){
-            Integer hp = statMap.get("HP%");
-            if (hp == 4) { rating += 1; }
-            if (hp ==5) { rating += 2; }
-            if (hp == 6) { rating += 3; }
-            if (hp == 7) { rating += 4; }
-            if (hp == 8) { rating += 5; }
-            if (hp == 11) { rating += 6; } //Main stat, highly desired
-        }
-
-        if ( statMap.containsKey("DEF%")){
-            Integer def = statMap.get("DEF%");
-            if (def == 4) { rating += 1; }
-            if (def ==5) { rating += 2; }
-            if (def == 6) { rating += 3; }
-            if (def == 7) { rating += 4; }
-            if (def == 8) { rating += 5; }
-            if (def == 11) { rating += 6; } //Main stat, highly desired
+        //Slot 1/3/5 runes only
+        if(mainStatType.equalsIgnoreCase("Flat")) {
+            if (statMap.containsKey("DEF%")) {
+                if (statMap.get("DEF%") > 6) {
+                    rating += 2;
+                } else {
+                    rating += 1;
+                }
+            }
+            if (statMap.containsKey("HP%")) {
+                if (statMap.get("HP%") > 6) {
+                    rating += 2;
+                } else {
+                    rating += 1;
+                }
+            }
+            if (statMap.containsKey("CRI Rate%")){
+                if(statMap.get("CRI Rate%")  > 4){
+                    rating +=5;
+                }
+                else{
+                    rating +=4;
+                }
+            }
+            if(statMap.containsKey("CRI Dmg%")) {
+                if (statMap.get("CRI Dmg%") > 5) {
+                    rating += 5;
+                } else {
+                    rating += 4;
+                }
+            }
+            if (statMap.containsKey("SPD+")){
+                if(statMap.get("SPD+") > 4){
+                    rating +=6;
+                }
+                else{
+                    rating += 5;
+                }
+            }
+            if (statMap.containsKey("Accuracy%")){
+                rating+=2;
+            }
         }
 
         if(statMap.containsKey("ATK+")){

@@ -8,9 +8,9 @@ import java.util.HashMap;
 public class StatMap {
     public static HashMap<String, Integer> statMapper (String imp, String ms, String s1, String s2, String s3, String s4, String rarity){
         HashMap<String, Integer> mappedValues = new HashMap<>();
-        mappedValues.put(stringifier(ms), valueGrabber(ms));
+        //mappedValues.put(stringifier(ms), valueGrabber(ms));
+        //No need to grab main stat since it's static.
 
-        //org.DemonSkye.wut.Main value goes in no matter what.
         mappedValues.put(stringifier(s1), valueGrabber(s1));
         mappedValues.put(stringifier(s2), valueGrabber(s2));
         if(rarity.equalsIgnoreCase("Hero")){
@@ -40,7 +40,7 @@ public class StatMap {
     }
 
     public static Integer valueGrabber (String str){
-        Integer value = 0;
+        Integer value;
         if(str.contains("%")){
             str = str.substring(str.indexOf(" ")+1);
             if(str.contains(" ")) {

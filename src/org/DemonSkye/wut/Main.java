@@ -26,11 +26,12 @@ public class Main {
             FileOut.write("scroll");
         }
         if (str.contains("Rune")){
-            if(RuneDrop.runeEval(str) ==2){
+            Integer runeReturn = RuneDrop.runeEval(str);
+            if(runeReturn == 2){
                 found = true;
                 FileOut.write("rune: Maybe");
             }
-            if(RuneDrop.runeEval(str) ==1){
+            if(runeReturn == 1){
                 found = true;
                 FileOut.write("rune: Maybe");
             }

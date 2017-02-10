@@ -80,7 +80,7 @@ public class RuneDrop {
 
         //System.out.println("Grade: " + grade );
         //Only get 5 * legendaries with speed
-        if (grade.equals("5")) {
+        if (grade ==5) {
             if (!str.contains("Legendary") && str.contains("SPD")) {
                 return 0;
             }
@@ -93,19 +93,19 @@ public class RuneDrop {
         if (grade == 6) {
             //Don't bother if main stat is rubbish
             // Shit that we never, ever want.
-            if (mainStat.contains("DEF +") ||
+            if(slot == 2 || slot == 4 || slot == 6) {
+                if (mainStat.contains("DEF +") ||
                     mainStat.contains("ATK +") ||
                     mainStat.contains("HP +") ||
                     mainStat.contains("Resist")
-                    ) {
-                return keep;
+                ) {System.out.println("Rejected for base type: " + mainStat); return 0;}
             }
 
-            HashMap<String, Integer> statMap = new HashMap<>();
+            HashMap<String, Integer> statMap;
             if (noImplicit) {
                 statMap = StatMap.statMapper("", mainStat, substat1, substat2, substat3, substat4, rarity);
             }
-            if (!noImplicit) {
+            else{
                 statMap = StatMap.statMapper(implicit, mainStat, substat1, substat2, substat3, substat4, rarity);
             }
 
@@ -113,88 +113,110 @@ public class RuneDrop {
             //Debug for contents of hashmap
             System.out.println("Outputting Hashmap");
             for (String name : statMap.keySet()) {
-                String key = name.toString();
+                String key = name;
                 String val = statMap.get(name).toString();
                 System.out.println(key + " " + val);
             }
 
+            String mainStatType = "";
+            if (mainStat.contains("HP")){
+                mainStatType = "HP";
+            }
+            if (mainStat.contains("DEF")){
+                mainStatType = "DEF";
+            }
+            if (mainStat.contains("ATK")){
+                mainStatType = "ATK";
+            }
+            if (mainStat.contains("SPD")){
+                mainStatType = "SPD";
+            }
+            if (mainStat.contains("CRI D")){
+                mainStatType = "CRI D";
+            }
+            if (mainStat.contains("CRI R")){
+                mainStatType = "CRI R";
+            }
+            if (mainStat.contains("+") && !mainStat.contains("SPD")){
+                mainStatType = "Flat";
+            }
             if (type.equalsIgnoreCase("Blade")){
-                keep = org.DemonSkye.wut.RuneType.Blade.evalRune(statMap, rarity);
+                keep = org.DemonSkye.wut.RuneType.Blade.evalRune(statMap, rarity, mainStatType);
                 return keep;
             }
 
             if (type.equalsIgnoreCase("Despair")){
-                keep = org.DemonSkye.wut.RuneType.Despair.evalRune(statMap, rarity);
+                keep = org.DemonSkye.wut.RuneType.Despair.evalRune(statMap, rarity, mainStatType);
                 return keep;
             }
 
             if (type.equalsIgnoreCase("Destroy")){
-                keep = org.DemonSkye.wut.RuneType.Destroy.evalRune(statMap, rarity);
+                keep = org.DemonSkye.wut.RuneType.Destroy.evalRune(statMap, rarity, mainStatType);
                 return keep;
             }
 
             if (type.equalsIgnoreCase("Endure")){
-                keep = org.DemonSkye.wut.RuneType.Endure.evalRune(statMap, rarity);
+                keep = org.DemonSkye.wut.RuneType.Endure.evalRune(statMap, rarity, mainStatType);
                 return keep;
             }
 
             if (type.equalsIgnoreCase("Energy")){
-                keep = org.DemonSkye.wut.RuneType.Blade.evalRune(statMap, rarity);
+                keep = org.DemonSkye.wut.RuneType.Blade.evalRune(statMap, rarity, mainStatType);
                 return keep;
             }
 
             if (type.equalsIgnoreCase("Fatal")){
-                keep = org.DemonSkye.wut.RuneType.Blade.evalRune(statMap, rarity);
+                keep = org.DemonSkye.wut.RuneType.Blade.evalRune(statMap, rarity, mainStatType);
                 return keep;
             }
 
             if (type.equalsIgnoreCase("Focus")){
-                keep = org.DemonSkye.wut.RuneType.Blade.evalRune(statMap, rarity);
+                keep = org.DemonSkye.wut.RuneType.Blade.evalRune(statMap, rarity, mainStatType);
                 return keep;
             }
 
             if (type.equalsIgnoreCase("Guard")){
-                keep = org.DemonSkye.wut.RuneType.Blade.evalRune(statMap, rarity);
+                keep = org.DemonSkye.wut.RuneType.Blade.evalRune(statMap, rarity, mainStatType);
                 return keep;
             }
 
             if (type.equalsIgnoreCase("Nemesis")){
-                keep = org.DemonSkye.wut.RuneType.Blade.evalRune(statMap, rarity);
+                keep = org.DemonSkye.wut.RuneType.Blade.evalRune(statMap, rarity, mainStatType);
                 return keep;
             }
 
             if (type.equalsIgnoreCase("Rage")){
-                keep = org.DemonSkye.wut.RuneType.Blade.evalRune(statMap, rarity);
+                keep = org.DemonSkye.wut.RuneType.Blade.evalRune(statMap, rarity, mainStatType);
                 return keep;
             }
 
             if (type.equalsIgnoreCase("Revenge")){
-                keep = org.DemonSkye.wut.RuneType.Blade.evalRune(statMap, rarity);
+                keep = org.DemonSkye.wut.RuneType.Blade.evalRune(statMap, rarity, mainStatType);
                 return keep;
             }
 
             if (type.equalsIgnoreCase("Shield")){
-                keep = org.DemonSkye.wut.RuneType.Blade.evalRune(statMap, rarity);
+                keep = org.DemonSkye.wut.RuneType.Blade.evalRune(statMap, rarity, mainStatType);
                 return keep;
             }
 
             if (type.equalsIgnoreCase("Swift")){
-                keep = org.DemonSkye.wut.RuneType.Blade.evalRune(statMap, rarity);
+                keep = org.DemonSkye.wut.RuneType.Blade.evalRune(statMap, rarity, mainStatType);
                 return keep;
             }
 
             if (type.equalsIgnoreCase("Vampire")){
-                keep = org.DemonSkye.wut.RuneType.Blade.evalRune(statMap, rarity);
+                keep = org.DemonSkye.wut.RuneType.Blade.evalRune(statMap, rarity, mainStatType);
                 return keep;
             }
 
             if (type.equalsIgnoreCase("Violent")){
-                keep = org.DemonSkye.wut.RuneType.Blade.evalRune(statMap, rarity);
+                keep = org.DemonSkye.wut.RuneType.Blade.evalRune(statMap, rarity, mainStatType);
                 return keep;
             }
 
             if (type.equalsIgnoreCase("Will")){
-                keep = org.DemonSkye.wut.RuneType.Blade.evalRune(statMap, rarity);
+                keep = org.DemonSkye.wut.RuneType.Blade.evalRune(statMap, rarity, mainStatType);
                 return keep;
             }
 
