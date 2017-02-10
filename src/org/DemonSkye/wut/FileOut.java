@@ -1,3 +1,5 @@
+package org.DemonSkye.wut;
+
 import java.io.FileNotFoundException;
 import java.io.PrintStream;
 import java.io.PrintWriter;

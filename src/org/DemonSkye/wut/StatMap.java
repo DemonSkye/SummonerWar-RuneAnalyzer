@@ -1,3 +1,5 @@
+package org.DemonSkye.wut;
+
 import java.util.HashMap;
 
 /**
@@ -8,7 +10,7 @@ public class StatMap {
         HashMap<String, Integer> mappedValues = new HashMap<>();
         mappedValues.put(stringifier(ms), valueGrabber(ms));
 
-        //Main value goes in no matter what.
+        //org.DemonSkye.wut.Main value goes in no matter what.
         mappedValues.put(stringifier(s1), valueGrabber(s1));
         mappedValues.put(stringifier(s2), valueGrabber(s2));
         if(rarity.equalsIgnoreCase("Hero")){

@@ -1,6 +1,6 @@
+package org.DemonSkye.wut;
+
 import java.io.File;
-import java.io.FileOutputStream;
-import java.io.IOException;
 
 /**
  * Created by Damien on 2/7/2017.
@@ -26,9 +26,13 @@ public class Main {
             FileOut.write("scroll");
         }
         if (str.contains("Rune")){
-            if(RuneDrop.runeEval(str)){
+            if(RuneDrop.runeEval(str) ==2){
                 found = true;
-                FileOut.write("rune: get");
+                FileOut.write("rune: Maybe");
+            }
+            if(RuneDrop.runeEval(str) ==1){
+                found = true;
+                FileOut.write("rune: Maybe");
             }
             else{
                 found = true;
