@@ -9,7 +9,7 @@ import java.util.HashMap;
 //Most important attributes:  Spd (Hugely important), HP/Def/Acc (for bruiser / healer), or Cd/Cr/Atk for assault
 public class Violent {
     public static int evalRune(HashMap<String, Integer> statMap, String rarity, String mainStatType){
-        int rating = 0;
+        int rating = 2; //violent is desirable so make the requirements a little less.
 
 
         // Add / Subtract points for quality

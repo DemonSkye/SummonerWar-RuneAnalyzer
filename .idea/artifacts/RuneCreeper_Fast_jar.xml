@@ -1,0 +1,8 @@
+<component name="ArtifactManager">
+  <artifact type="jar" name="RuneCreeper-Fast:jar">
+    <output-path>$PROJECT_DIR$/out/artifacts/RuneCreeper_Fast_jar</output-path>
+    <root id="archive" name="RuneCreeper-Fast.jar">
+      <element id="module-output" name="RuneCreeper-Fast" />
+    </root>
+  </artifact>
+</component>

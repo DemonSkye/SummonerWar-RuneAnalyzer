@@ -8,7 +8,7 @@ import java.io.File;
 public class Main {
     public static void main(String args[]) {
         long start = System.nanoTime();
-        File f = new File("c:\\swproxy\\7578424-runs - copy.csv");
+        File f = new File("C:\\swproxy\\7578424-runs.csv");
         String str = ReadLastLine.tail(f);
 
         System.out.println(str);
@@ -28,15 +28,18 @@ public class Main {
         if (str.contains("Rune")){
             Integer runeReturn = RuneDrop.runeEval(str);
             if(runeReturn == 2){
+                System.out.println("runeReturn get: " + runeReturn);
                 found = true;
-                FileOut.write("rune: Maybe");
+                FileOut.write("rune: Get");
             }
             if(runeReturn == 1){
+                System.out.println("runeReturn maybe: " + runeReturn);
                 found = true;
                 FileOut.write("rune: Maybe");
             }
-            else{
+            if (runeReturn == 0){
                 found = true;
+                System.out.println("runeReturn sell: " + runeReturn);
                 FileOut.write("rune: sell");
             }
         }

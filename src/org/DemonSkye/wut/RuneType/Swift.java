@@ -9,7 +9,7 @@ import java.util.HashMap;
 //Most important attributes:  Spd, HP/Def/Acc (for bruiser / healer), or Cd/Cr/Atk for assault
 public class Swift {
     public static int evalRune(HashMap<String, Integer> statMap, String rarity, String mainStatType){
-        int rating = 0;
+        int rating = 1;
 
 
         // Add / Subtract points for quality

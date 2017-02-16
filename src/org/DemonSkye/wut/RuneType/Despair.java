@@ -69,17 +69,17 @@ public class Despair {
                 }
             }
 
-            //CD is huge on Blade, big damage increases.
+            //CD is alright, big damage increases.
             if(statMap.containsKey("CRI Dmg%")){
                 if(statMap.get("CRI Dmg%") > 5){
-                    rating +=4;
+                    rating +=3;
                 }
                 else{
-                    rating +=3;
+                    rating +=2;
                 }
             }
 
-            //CR on top of a CR base makes other runes less dependent on CR, which is nice when optimization day comes around.
+            //CR is neat as always
             if(statMap.containsKey("CRI Rate%")){
                 if(statMap.get("CRI Rate%") > 4){
                     rating +=4;
@@ -110,18 +110,18 @@ public class Despair {
             }
             if (statMap.containsKey("CRI Rate%")){
                 if(statMap.get("CRI Rate%")  > 4){
-                    rating +=4;
+                    rating +=3;
                 }
                 else{
-                    rating +=3;
+                    rating +=2;
                 }
             }
             if(statMap.containsKey("CRI Dmg%")){
                 if(statMap.get("CRI Dmg%")>5){
-                    rating +=4;
+                    rating +=3;
                 }
                 else{
-                    rating +=3;
+                    rating +=2;
                 }
             }
             //Fast bruisers win the day -- This doesn't really apply to NB10 teams, but yeahhhh.

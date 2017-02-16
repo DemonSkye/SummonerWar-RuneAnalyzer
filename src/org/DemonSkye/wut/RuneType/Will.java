@@ -9,7 +9,7 @@ import java.util.HashMap;
 //Most important attributes:  Spd (Massively important), HP/Def/Acc (for bruiser / healer), or Cd/Cr/Atk for assault
 public class Will {
     public static int evalRune(HashMap<String, Integer> statMap, String rarity, String mainStatType){
-        int rating = 0;
+        int rating = 2; //Will is pretty useful on def, so let's make that a bit easier to get them
 
 
         // Add / Subtract points for quality

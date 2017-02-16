@@ -82,10 +82,10 @@ public class RuneDrop {
         //Only get 5 * legendaries with speed
         if (grade ==5) {
             if (!str.contains("Legendary") && str.contains("SPD")) {
-                return 0;
+                return 1;
             }
             else{
-                return 1;
+                return 0;
             }
         }
 
@@ -219,9 +219,6 @@ public class RuneDrop {
                 keep = org.DemonSkye.wut.RuneType.Blade.evalRune(statMap, rarity, mainStatType);
                 return keep;
             }
-
-
-
         }
         return keep;
     }
