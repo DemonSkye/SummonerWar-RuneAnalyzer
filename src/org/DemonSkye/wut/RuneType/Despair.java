@@ -208,6 +208,15 @@ public class Despair {
                 }
             }
 
+            if(statMap.containsKey("ATK%")){
+                if(statMap.get("ATK%") >6){
+                    rating +=5;
+                }
+                else{
+                    rating +=3;
+                }
+            }
+
             if(statMap.containsKey("Accuracy%")){
                 rating +=1;
             }
