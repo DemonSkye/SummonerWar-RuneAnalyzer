@@ -1,16 +1,18 @@
 package org.DemonSkye.wut;
 
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 
 /**
  * Created by Damien on 2/7/2017.
  */
 public class RuneDrop {
-    public static int runeEval(String str) {
+    public static Double runeEval(String str) {
 
         boolean noImplicit = false;
 
-        int keep = 0;
+        Double keep = 0.0;
         //keep 0 = no, keep 1 = maybe, keep 2 = yes.
 
 
@@ -82,10 +84,10 @@ public class RuneDrop {
         //Only get 5 * legendaries with speed
         if (grade ==5) {
             if (!str.contains("Legendary") && str.contains("SPD")) {
-                return 1;
+                return 1.0;
             }
             else{
-                return 0;
+                return 0.0;
             }
         }
 
@@ -95,10 +97,10 @@ public class RuneDrop {
             // Shit that we never, ever want.
             if(slot == 2 || slot == 4 || slot == 6) {
                 if (mainStat.contains("DEF +") ||
-                    mainStat.contains("ATK +") ||
-                    mainStat.contains("HP +") ||
-                    mainStat.contains("Resist")
-                ) {System.out.println("Rejected for base type: " + mainStat); return 0;}
+                        mainStat.contains("ATK +") ||
+                        mainStat.contains("HP +") ||
+                        mainStat.contains("Resist")
+                        ) {System.out.println("Rejected for MainStat base type: " + mainStat); return 0.0;}
             }
 
             HashMap<String, Integer> statMap;
@@ -140,87 +142,155 @@ public class RuneDrop {
             if (mainStat.contains("+") && !mainStat.contains("SPD")){
                 mainStatType = "Flat";
             }
-            if (type.equalsIgnoreCase("Blade")){
-                keep = org.DemonSkye.wut.RuneType.Blade.evalRune(statMap, rarity, mainStatType);
-                return keep;
+
+            int offset =0;
+            // Add / Subtract points for quality
+            if (rarity.equalsIgnoreCase("Common")){
+                offset -= 2;
+            }
+            if (rarity.equalsIgnoreCase("Magic")){
+                offset -= 1;
+            }
+            if (rarity.equalsIgnoreCase("Rare")){
+                offset += 0;
+            }
+            if (rarity.equalsIgnoreCase("Hero")){
+                offset += 2;
+            }
+            if (rarity.equalsIgnoreCase("Legendary")){
+                offset += 3;
             }
 
-            if (type.equalsIgnoreCase("Despair")){
-                keep = org.DemonSkye.wut.RuneType.Despair.evalRune(statMap, rarity, mainStatType);
-                return keep;
+
+            //SlowNuke
+            //SlowTank
+            //SpdNuke
+            //Bruiser
+            //Healer
+            //AccNuke
+            //Raid
+            //Bomber
+            List<String> preferredTypes = new ArrayList<>();
+            if (type.equalsIgnoreCase("Blade")){
+                preferredTypes.add("SlowNuke");
+                preferredTypes.add("SpdNuke");
+                preferredTypes.add("Bruiser");
+                preferredTypes.add("AccNuke");
+                if(slot == 1 || slot ==3 || slot == 5) {
+                    keep = org.DemonSkye.wut.RuneType.runeRole.runeRankingOdd(statMap, offset, preferredTypes);
+                }
+            }
+
+            if (type.equalsIgnoreCase("Despair")){ //give despair +1 because they have lots of end game uses
+                preferredTypes.add("SpdNuke");
+                preferredTypes.add("Bruiser");
+                preferredTypes.add("Healer");
+                preferredTypes.add("AccNuke");
+                if(slot == 1 || slot == 3 || slot ==5) {
+                    keep = org.DemonSkye.wut.RuneType.runeRole.runeRankingOdd(statMap, offset + 1, preferredTypes);
+                }
             }
 
             if (type.equalsIgnoreCase("Destroy")){
-                keep = org.DemonSkye.wut.RuneType.Destroy.evalRune(statMap, rarity, mainStatType);
-                return keep;
+                preferredTypes.add("Healer");
+                preferredTypes.add("SpdNuke");
+                preferredTypes.add("Bruiser");
+                if(slot == 1 || slot == 3 || slot ==5) {
+                    keep = org.DemonSkye.wut.RuneType.runeRole.runeRankingOdd(statMap, offset, preferredTypes);
+                }
             }
 
             if (type.equalsIgnoreCase("Endure")){
-                keep = org.DemonSkye.wut.RuneType.Endure.evalRune(statMap, rarity, mainStatType);
-                return keep;
+                preferredTypes.add("Healer");
+                preferredTypes.add("Raid");
+                preferredTypes.add("Bruiser");
+                if(slot == 1 || slot == 3 || slot ==5) {
+                    keep = org.DemonSkye.wut.RuneType.runeRole.runeRankingOdd(statMap, offset, preferredTypes);
+                }
             }
 
             if (type.equalsIgnoreCase("Energy")){
-                keep = org.DemonSkye.wut.RuneType.Blade.evalRune(statMap, rarity, mainStatType);
-                return keep;
+                preferredTypes.add("Healer");
+                preferredTypes.add("Bruiser");
+                if(slot == 1 || slot == 3 || slot ==5) {
+                    keep = org.DemonSkye.wut.RuneType.runeRole.runeRankingOdd(statMap, offset, preferredTypes);
+                }
             }
 
             if (type.equalsIgnoreCase("Fatal")){
-                keep = org.DemonSkye.wut.RuneType.Blade.evalRune(statMap, rarity, mainStatType);
-                return keep;
+                preferredTypes.add("SlowNuke");
+                preferredTypes.add("SpdNuke");
+                preferredTypes.add("Bomber");
+                if(slot == 1 || slot == 3 || slot ==5) {
+                    keep = org.DemonSkye.wut.RuneType.runeRole.runeRankingOdd(statMap, offset, preferredTypes);
+                }
             }
 
             if (type.equalsIgnoreCase("Focus")){
-                keep = org.DemonSkye.wut.RuneType.Blade.evalRune(statMap, rarity, mainStatType);
-                return keep;
+                if(slot == 1 || slot == 3 || slot ==5) {
+                    keep = org.DemonSkye.wut.RuneType.runeRole.runeRankingOdd(statMap, offset, preferredTypes);
+                }
             }
 
             if (type.equalsIgnoreCase("Guard")){
-                keep = org.DemonSkye.wut.RuneType.Blade.evalRune(statMap, rarity, mainStatType);
-                return keep;
+                if(slot == 1 || slot == 3 || slot ==5) {
+                    keep = org.DemonSkye.wut.RuneType.runeRole.runeRankingOdd(statMap, offset, preferredTypes);
+                }
             }
 
             if (type.equalsIgnoreCase("Nemesis")){
-                keep = org.DemonSkye.wut.RuneType.Blade.evalRune(statMap, rarity, mainStatType);
-                return keep;
+                if(slot == 1 || slot == 3 || slot ==5) {
+                    keep = org.DemonSkye.wut.RuneType.runeRole.runeRankingOdd(statMap, offset, preferredTypes);
+                }
             }
 
             if (type.equalsIgnoreCase("Rage")){
-                keep = org.DemonSkye.wut.RuneType.Blade.evalRune(statMap, rarity, mainStatType);
-                return keep;
+                if(slot == 1 || slot == 3 || slot ==5) {
+                    keep = org.DemonSkye.wut.RuneType.runeRole.runeRankingOdd(statMap, offset, preferredTypes);
+                }
             }
 
             if (type.equalsIgnoreCase("Revenge")){
-                keep = org.DemonSkye.wut.RuneType.Blade.evalRune(statMap, rarity, mainStatType);
-                return keep;
+                if(slot == 1 || slot == 3 || slot ==5) {
+                    keep = org.DemonSkye.wut.RuneType.runeRole.runeRankingOdd(statMap, offset, preferredTypes);
+                }
             }
 
             if (type.equalsIgnoreCase("Shield")){
-                keep = org.DemonSkye.wut.RuneType.Blade.evalRune(statMap, rarity, mainStatType);
-                return keep;
+                if(slot == 1 || slot == 3 || slot ==5) {
+                    keep = org.DemonSkye.wut.RuneType.runeRole.runeRankingOdd(statMap, offset, preferredTypes);
+                }
             }
 
             if (type.equalsIgnoreCase("Swift")){
-                keep = org.DemonSkye.wut.RuneType.Blade.evalRune(statMap, rarity, mainStatType);
-                return keep;
+                if(slot == 1 || slot == 3 || slot ==5) {
+                    keep = org.DemonSkye.wut.RuneType.runeRole.runeRankingOdd(statMap, offset, preferredTypes);
+                }
             }
 
             if (type.equalsIgnoreCase("Vampire")){
-                keep = org.DemonSkye.wut.RuneType.Blade.evalRune(statMap, rarity, mainStatType);
-                return keep;
+                if(slot == 1 || slot == 3 || slot ==5) {
+                    keep = org.DemonSkye.wut.RuneType.runeRole.runeRankingOdd(statMap, offset, preferredTypes);
+                }
             }
 
             if (type.equalsIgnoreCase("Violent")){
-                keep = org.DemonSkye.wut.RuneType.Blade.evalRune(statMap, rarity, mainStatType);
-                return keep;
+                if(slot == 1 || slot == 3 || slot ==5) {
+                    keep = org.DemonSkye.wut.RuneType.runeRole.runeRankingOdd(statMap, offset, preferredTypes);
+                }
             }
 
             if (type.equalsIgnoreCase("Will")){
-                keep = org.DemonSkye.wut.RuneType.Blade.evalRune(statMap, rarity, mainStatType);
-                return keep;
+                if(slot == 1 || slot == 3 || slot ==5) {
+                    keep = org.DemonSkye.wut.RuneType.runeRole.runeRankingOdd(statMap, offset, preferredTypes);
+                }
             }
         }
-        return keep;
+        if (keep > 10.0) {return 2.0; }
+        if(keep <10.0 && keep >7.0) {return 1.0;}
+        else{
+            return 0.0;
+        }
     }
 }
 

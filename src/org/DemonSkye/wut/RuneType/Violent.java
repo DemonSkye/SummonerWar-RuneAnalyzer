@@ -223,16 +223,16 @@ public class Violent {
         if(mainStatType.equalsIgnoreCase("Flat")) {
             if (statMap.containsKey("DEF%")) {
                 if (statMap.get("DEF%") > 6) {
-                    rating += 2;
+                    rating += 5;
                 } else {
-                    rating += 1;
+                    rating += 4;
                 }
             }
             if (statMap.containsKey("HP%")) {
                 if (statMap.get("HP%") > 6) {
-                    rating += 2;
+                    rating += 5;
                 } else {
-                    rating += 1;
+                    rating += 4;
                 }
             }
             if (statMap.containsKey("CRI Rate%")){
@@ -256,6 +256,14 @@ public class Violent {
                 }
                 else{
                     rating += 5;
+                }
+            }
+            if (statMap.containsKey("Resistance%")){
+                if(statMap.get("Resistance%") > 4){
+                    rating +=3;
+                }
+                else{
+                    rating += 2;
                 }
             }
 

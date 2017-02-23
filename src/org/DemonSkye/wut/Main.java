@@ -26,7 +26,7 @@ public class Main {
             FileOut.write("scroll");
         }
         if (str.contains("Rune")){
-            Integer runeReturn = RuneDrop.runeEval(str);
+            Double runeReturn = RuneDrop.runeEval(str);
             if(runeReturn == 2){
                 System.out.println("runeReturn get: " + runeReturn);
                 found = true;
