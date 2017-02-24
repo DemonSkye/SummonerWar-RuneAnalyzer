@@ -3,6 +3,7 @@ package org.DemonSkye.wut;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
+import java.util.function.Predicate;
 
 /**
  * Created by Damien on 2/7/2017.
@@ -162,30 +163,33 @@ public class RuneDrop {
             }
 
 
+
+            //AccNuke
+            //Bomber
+            //Bruiser
+            //Healer
+            //Raid
             //SlowNuke
             //SlowTank
             //SpdNuke
-            //Bruiser
-            //Healer
-            //AccNuke
-            //Raid
-            //Bomber
+
             List<String> preferredTypes = new ArrayList<>();
             if (type.equalsIgnoreCase("Blade")){
-                preferredTypes.add("SlowNuke");
-                preferredTypes.add("SpdNuke");
                 preferredTypes.add("Bruiser");
                 preferredTypes.add("AccNuke");
+                preferredTypes.add("SlowNuke");
+                preferredTypes.add("SpdNuke");
+
                 if(slot == 1 || slot ==3 || slot == 5) {
                     keep = org.DemonSkye.wut.RuneType.runeRole.runeRankingOdd(statMap, offset, preferredTypes);
                 }
             }
 
             if (type.equalsIgnoreCase("Despair")){ //give despair +1 because they have lots of end game uses
-                preferredTypes.add("SpdNuke");
+                preferredTypes.add("AccNuke");
                 preferredTypes.add("Bruiser");
                 preferredTypes.add("Healer");
-                preferredTypes.add("AccNuke");
+                preferredTypes.add("SpdNuke");
                 if(slot == 1 || slot == 3 || slot ==5) {
                     keep = org.DemonSkye.wut.RuneType.runeRole.runeRankingOdd(statMap, offset + 1, preferredTypes);
                 }
@@ -193,94 +197,134 @@ public class RuneDrop {
 
             if (type.equalsIgnoreCase("Destroy")){
                 preferredTypes.add("Healer");
-                preferredTypes.add("SpdNuke");
                 preferredTypes.add("Bruiser");
+                preferredTypes.add("SpdNuke");
                 if(slot == 1 || slot == 3 || slot ==5) {
                     keep = org.DemonSkye.wut.RuneType.runeRole.runeRankingOdd(statMap, offset, preferredTypes);
                 }
             }
 
             if (type.equalsIgnoreCase("Endure")){
+                preferredTypes.add("Bruiser");
                 preferredTypes.add("Healer");
                 preferredTypes.add("Raid");
-                preferredTypes.add("Bruiser");
                 if(slot == 1 || slot == 3 || slot ==5) {
                     keep = org.DemonSkye.wut.RuneType.runeRole.runeRankingOdd(statMap, offset, preferredTypes);
                 }
             }
 
             if (type.equalsIgnoreCase("Energy")){
-                preferredTypes.add("Healer");
                 preferredTypes.add("Bruiser");
+                preferredTypes.add("Healer");
                 if(slot == 1 || slot == 3 || slot ==5) {
                     keep = org.DemonSkye.wut.RuneType.runeRole.runeRankingOdd(statMap, offset, preferredTypes);
                 }
             }
 
             if (type.equalsIgnoreCase("Fatal")){
+                preferredTypes.add("Bomber");
                 preferredTypes.add("SlowNuke");
                 preferredTypes.add("SpdNuke");
-                preferredTypes.add("Bomber");
                 if(slot == 1 || slot == 3 || slot ==5) {
                     keep = org.DemonSkye.wut.RuneType.runeRole.runeRankingOdd(statMap, offset, preferredTypes);
                 }
             }
 
             if (type.equalsIgnoreCase("Focus")){
+                preferredTypes.add("AccNuke");
+                preferredTypes.add("Healer");
                 if(slot == 1 || slot == 3 || slot ==5) {
                     keep = org.DemonSkye.wut.RuneType.runeRole.runeRankingOdd(statMap, offset, preferredTypes);
                 }
             }
 
             if (type.equalsIgnoreCase("Guard")){
+                preferredTypes.add("Bruiser");
+                preferredTypes.add("Healer");
+                preferredTypes.add("SlowTank");
                 if(slot == 1 || slot == 3 || slot ==5) {
                     keep = org.DemonSkye.wut.RuneType.runeRole.runeRankingOdd(statMap, offset, preferredTypes);
                 }
             }
 
             if (type.equalsIgnoreCase("Nemesis")){
+                preferredTypes.add("AccNuke");
+                preferredTypes.add("Bruiser");
+                preferredTypes.add("Healer");
+                preferredTypes.add("SlowTank");
+                preferredTypes.add("SpdNuke");
                 if(slot == 1 || slot == 3 || slot ==5) {
                     keep = org.DemonSkye.wut.RuneType.runeRole.runeRankingOdd(statMap, offset, preferredTypes);
                 }
             }
 
             if (type.equalsIgnoreCase("Rage")){
+                preferredTypes.add("AccNuke");
+                preferredTypes.add("Bruiser");
+                preferredTypes.add("SlowNuke");
+                preferredTypes.add("SpdNuke");
                 if(slot == 1 || slot == 3 || slot ==5) {
                     keep = org.DemonSkye.wut.RuneType.runeRole.runeRankingOdd(statMap, offset, preferredTypes);
                 }
             }
 
             if (type.equalsIgnoreCase("Revenge")){
+                preferredTypes.add("Bruiser");
+                preferredTypes.add("Raid");
+                preferredTypes.add("SlowTank");
+                preferredTypes.add("SpdNuke");
+
                 if(slot == 1 || slot == 3 || slot ==5) {
                     keep = org.DemonSkye.wut.RuneType.runeRole.runeRankingOdd(statMap, offset, preferredTypes);
                 }
             }
 
             if (type.equalsIgnoreCase("Shield")){
+                preferredTypes.add("Bruiser");
+                preferredTypes.add("Healer");
+                preferredTypes.add("SlowTank");
                 if(slot == 1 || slot == 3 || slot ==5) {
                     keep = org.DemonSkye.wut.RuneType.runeRole.runeRankingOdd(statMap, offset, preferredTypes);
                 }
             }
 
             if (type.equalsIgnoreCase("Swift")){
+                preferredTypes.add("Healer");
+                preferredTypes.add("Raid");
+                preferredTypes.add("SpdNuke");
+
                 if(slot == 1 || slot == 3 || slot ==5) {
                     keep = org.DemonSkye.wut.RuneType.runeRole.runeRankingOdd(statMap, offset, preferredTypes);
                 }
             }
 
             if (type.equalsIgnoreCase("Vampire")){
+                preferredTypes.add("Bruiser");
+                preferredTypes.add("Raid");
+                preferredTypes.add("SlowNuke");
+                preferredTypes.add("SpdNuke");
                 if(slot == 1 || slot == 3 || slot ==5) {
                     keep = org.DemonSkye.wut.RuneType.runeRole.runeRankingOdd(statMap, offset, preferredTypes);
                 }
             }
 
             if (type.equalsIgnoreCase("Violent")){
+                preferredTypes.add("AccNuke");
+                preferredTypes.add("Bruiser");
+                preferredTypes.add("Healer");
+                preferredTypes.add("Raid");
+                preferredTypes.add("SpdNuke");
+                preferredTypes.add("SlowNuke");
                 if(slot == 1 || slot == 3 || slot ==5) {
                     keep = org.DemonSkye.wut.RuneType.runeRole.runeRankingOdd(statMap, offset, preferredTypes);
                 }
             }
 
             if (type.equalsIgnoreCase("Will")){
+                preferredTypes.add("AccNuke");
+                preferredTypes.add("Bruiser");
+                preferredTypes.add("Healer");
+                preferredTypes.add("SpdNuke");
                 if(slot == 1 || slot == 3 || slot ==5) {
                     keep = org.DemonSkye.wut.RuneType.runeRole.runeRankingOdd(statMap, offset, preferredTypes);
                 }
