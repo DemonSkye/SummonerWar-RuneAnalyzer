@@ -183,6 +183,9 @@ public class RuneDrop {
                 if(slot == 1 || slot ==3 || slot == 5) {
                     keep = org.DemonSkye.wut.RuneType.runeRole.runeRankingOdd(statMap, offset, preferredTypes);
                 }
+                else{
+                    keep = org.DemonSkye.wut.RuneType.runeRole.runeRankingEven(mainStatType,statMap,offset,preferredTypes);
+                }
             }
 
             if (type.equalsIgnoreCase("Despair")){ //give despair +1 because they have lots of end game uses

@@ -633,6 +633,11 @@ public class runeRole {
                     runeValue += 5;
                 }
             }
+            for (String s : prefTypes) {
+                if (s.equalsIgnoreCase("AccNuke")) {
+                    runeValue += 3;
+                }
+            }
         }
 
         ////
@@ -654,6 +659,11 @@ public class runeRole {
                 }
                 if(rune.get("Accuracy%") == 8 ){
                     runeValue += 10;
+                }
+            }
+            for (String s : prefTypes) {
+                if (s.equalsIgnoreCase("Bomber")) {
+                    runeValue += 3;
                 }
             }
         }
@@ -726,6 +736,11 @@ public class runeRole {
                         }
                     }
                 }
+            for (String s : prefTypes) {
+                if (s.equalsIgnoreCase("Bruiser")) {
+                    runeValue += 3;
+                }
+            }
             }
 
 
@@ -784,6 +799,11 @@ public class runeRole {
                         if (rune.get("HP%") == 8) {
                             runeValue += 6.5;
                         }
+                    }
+                }
+                for (String s : prefTypes) {
+                    if (s.equalsIgnoreCase("Healer")) {
+                        runeValue += 3;
                     }
                 }
             }
@@ -873,9 +893,11 @@ public class runeRole {
                             runeValue += 5;
                         }
                     }
-
-
-
+                }
+                for (String s : prefTypes) {
+                    if (s.equalsIgnoreCase("Raid")) {
+                        runeValue += 3;
+                    }
                 }
             }
 
@@ -906,7 +928,11 @@ public class runeRole {
                 if(rune.get("CRI Dmg%") == 7 ){
                     runeValue += 7;
                 }
-
+                for (String s : prefTypes) {
+                    if (s.equalsIgnoreCase("SlowNuke")) {
+                        runeValue += 3;
+                    }
+                }
             }
 
 
@@ -960,6 +986,11 @@ public class runeRole {
                 if (rune.get("Resistance%") == 8) {
                     runeValue += 6;
                 }
+                for (String s : prefTypes) {
+                    if (s.equalsIgnoreCase("SlowTank")) {
+                        runeValue += 3;
+                    }
+                }
             }
 
             ////
@@ -1007,7 +1038,11 @@ public class runeRole {
                     if(rune.get("CRI Dmg%") == 7 ){
                         runeValue += 7;
                     }
-
+                }
+                for (String s : prefTypes) {
+                    if (s.equalsIgnoreCase("SpdNuke")) {
+                        runeValue += 3;
+                    }
                 }
             }
             return runeValue;
