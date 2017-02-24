@@ -589,6 +589,7 @@ public class runeRole {
         ////
         //AccNuke: Atk / Acc / Cr / CD
         ////
+
         if(mainStat.equalsIgnoreCase("ATK") || mainStat.equalsIgnoreCase("SPD")){
             if(rune.containsKey("Accuracy%") && (rune.containsKey("CRI Rate%") || rune.containsKey("CRI Dmg%")) && hasSpeed){
                 if(rune.get("Accuracy%") == 4 ){
@@ -643,6 +644,7 @@ public class runeRole {
         ////
         //Bomber: Atk + Acc
         ////
+
         if(mainStat.equalsIgnoreCase("ATK") || mainStat.equalsIgnoreCase("SPD")){
             if(rune.containsKey("Accuracy%")&& hasSpeed){
                 if(rune.get("Accuracy%") == 4 ){
@@ -671,6 +673,7 @@ public class runeRole {
         ////
         //Bruiser: DEF | HP + CR / CD
         ////
+
         if(mainStat.equalsIgnoreCase("DEF") || mainStat.equalsIgnoreCase("HP") || mainStat.equalsIgnoreCase("SPD")) {
             if ((rune.containsKey("CRI Rate%") || rune.containsKey("CRI Dmg%")) &&
                     (rune.containsKey("HP%") || rune.containsKey("DEF%")) && hasSpeed) {
@@ -747,6 +750,7 @@ public class runeRole {
             ////
             //Healer: Def + Hp /// Hp + Acc + Def
             ////
+
             if(mainStat.equalsIgnoreCase("HP") || mainStat.equalsIgnoreCase("DEF") || mainStat.equalsIgnoreCase("SPD")){
                 if( rune.containsKey("DEF%") || rune.containsKey("HP%") && hasSpeed){
 
@@ -905,6 +909,7 @@ public class runeRole {
             ////
             //SlowNuke: Atk / CR / CD
             ////
+
             if(slowNuke){
                 if(rune.get("CRI Rate%") == 4 ){
                     runeValue += 4;
@@ -939,6 +944,7 @@ public class runeRole {
             ////
             //SlowTank: Def + Hp + Res
             ////
+
             if(slowTank){
                 if (rune.get("DEF%") == 4) {
                     runeValue += 3;
@@ -996,6 +1002,7 @@ public class runeRole {
             ////
             //SpdNuke: Atk | Spd // CD / CR / (Atk|Spd)
             ////
+
             if(mainStat.equalsIgnoreCase("ATK") || mainStat.equalsIgnoreCase("SPD")){
                 if(rune.containsKey("CRI Rate%") && rune.containsKey("CRI Dmg%") && hasSpeed){
                     if(rune.containsKey("ATK%")){
