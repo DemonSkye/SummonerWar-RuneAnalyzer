@@ -144,22 +144,22 @@ public class RuneDrop {
                 mainStatType = "Flat";
             }
 
-            int offset =0;
+            Double offset =0.0;
             // Add / Subtract points for quality
             if (rarity.equalsIgnoreCase("Common")){
-                offset -= 2;
+                offset -= 2.0;
             }
             if (rarity.equalsIgnoreCase("Magic")){
-                offset -= 1;
+                offset -= 1.0;
             }
             if (rarity.equalsIgnoreCase("Rare")){
-                offset += 0;
+                offset += 0.0;
             }
             if (rarity.equalsIgnoreCase("Hero")){
-                offset += 2;
+                offset += 2.0;
             }
             if (rarity.equalsIgnoreCase("Legendary")){
-                offset += 3;
+                offset += 3.0;
             }
 
 
