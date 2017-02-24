@@ -7,8 +7,8 @@ import java.util.List;
  * Created by Damien on 2/21/2017.
  */
 public class runeRole {
-    public static Double runeRankingOdd(HashMap<String, Integer> rune, Integer offset, List <String> prefTypes) {
-        Double runeValue = Double.parseDouble(offset.toString());
+    public static Double runeRankingOdd(HashMap<String, Integer> rune, Double offset, List <String> prefTypes) {
+        Double runeValue = offset;
         String preferredTypes[] = new String[prefTypes.size()];
         prefTypes.toArray(preferredTypes);
 
@@ -27,15 +27,15 @@ public class runeRole {
         boolean hasSpeed = false;
         boolean slowNuke = false;
         boolean slowTank = false;
-        if (rune.containsKey("spd+")) {
-            if (rune.get("spd+") > 3) {
+        if (rune.containsKey("Spd+")) {
+            if (rune.get("Spd+") > 3) {
                 hasSpeed = true;
             } else if (rune.containsKey("ATK%") && rune.containsKey("CRI Rate%") && rune.containsKey("CRI Dmg%")) {
                 if (rune.get("ATK%") > 5 && rune.get("CRI Rate%") > 4) {
                     slowNuke = true;
                 }
             } else if (rune.containsKey("DEF%") && rune.containsKey("HP%") && rune.containsKey("Resistance%")) {
-                if (rune.get("DEF%") > 5 && rune.get("HP") > 5 && rune.get("Resistance%") > 5) {
+                if (rune.get("DEF%") > 5 && rune.get("HP%") > 5 && rune.get("Resistance%") > 5) {
                     slowTank = true;
                 }
             }
@@ -43,7 +43,7 @@ public class runeRole {
 
 
         //If it matches none of the architypes return it as a useless rune.
-        if (!hasSpeed && !slowNuke && !slowTank) {
+        if (!( hasSpeed || slowNuke || slowTank)) {
             return 0.0;
         }
 
@@ -494,7 +494,6 @@ public class runeRole {
         ////
         //Bomber Atk + Acc
         ////
-
         if(rune.containsKey("ATK%") && rune.containsKey("Accuracy%")){
             if(rune.get("ATK%") == 4){
                 runeValue += 1;
@@ -530,4 +529,270 @@ public class runeRole {
         }
         return runeValue;
     }
-}
+    public static Double runeRankingEven(String mainStat,HashMap<String, Integer> rune, Double offset, List <String> prefTypes) {
+        Double runeValue = offset;
+        //
+        //Initially reject if it doesn't match slow tank / SlowNuke criteria
+        //
+
+        boolean hasSpeed=false, slowNuke=false, slowTank=false;
+
+        if (mainStat.equalsIgnoreCase("SPD") || rune.containsKey("Spd+") ) {
+            if (rune.get("Spd+") > 3) {
+                hasSpeed = true;
+            } else if (mainStat.equalsIgnoreCase("ATK") && rune.containsKey("CRI Rate%") && rune.containsKey("CRI Dmg%")) {
+                slowNuke = true;
+            } else if ( (mainStat.equalsIgnoreCase("DEF") ||mainStat.equalsIgnoreCase("HP") ) && (rune.containsKey("HP%")
+                    || rune.containsKey("DEF%")) && rune.containsKey("Resistance%")) {
+                slowTank = true;
+            }
+        }
+
+        //Shit rune if it doesn't have speed or fit a slow mold.
+        if( !(hasSpeed || slowNuke || slowTank))
+            return 0.0;
+
+
+        //Always ding flat stats for stealing our gains
+        if (rune.containsKey("DEF+") || rune.containsKey("ATK+") || rune.containsKey("HP+")) {
+            runeValue -= 2;
+        }
+
+
+        ////
+        //AccNuke: Atk / Acc / Cr / CD
+        ////
+        if(mainStat.equalsIgnoreCase("ATK")){
+            if(rune.containsKey("Accuracy%") && (rune.containsKey("CRI Rate%") || rune.containsKey("CRI Dmg%")) && hasSpeed){
+                if(rune.get("Accuracy%") == 4 ){
+                    runeValue += 2;
+                }
+                if(rune.get("Accuracy%") == 5 ){
+                    runeValue += 2.5;
+                }
+                if(rune.get("Accuracy%") == 6 ){
+                    runeValue += 3;
+                }
+                if(rune.get("Accuracy%") == 7 ){
+                    runeValue += 3.5;
+                }
+                if(rune.get("Accuracy%") == 8 ){
+                    runeValue += 5;
+                }
+            }
+
+            if (rune.containsKey("CRI Rate%")) {
+                if (rune.get("CRI Rate%") == 4) {
+                    runeValue += 4;
+                }
+                if (rune.get("CRI Rate%") == 5) {
+                    runeValue += 5;
+                }
+                if (rune.get("CRI Rate%") == 6) {
+                    runeValue += 6;
+                }
+            }
+            if (rune.containsKey("CRI Dmg%")) {
+                if (rune.get("CRI Dmg%") == 4) {
+                    runeValue += 2;
+                }
+                if (rune.get("CRI Dmg%") == 5) {
+                    runeValue += 3;
+                }
+                if (rune.get("CRI Dmg%") == 6) {
+                    runeValue += 4;
+                }
+                if (rune.get("CRI Dmg%") == 7) {
+                    runeValue += 5;
+                }
+            }
+        }
+
+        ////
+        //Bomber: Atk + Acc
+        ////
+        if(mainStat.equalsIgnoreCase("ATK")){
+            if(rune.containsKey("Accuracy%")&& hasSpeed){
+                if(rune.get("Accuracy%") == 4 ){
+                    runeValue += 6;
+                }
+                if(rune.get("Accuracy%") == 5 ){
+                    runeValue += 7.5;
+                }
+                if(rune.get("Accuracy%") == 6 ){
+                    runeValue += 8;
+                }
+                if(rune.get("Accuracy%") == 7 ){
+                    runeValue += 9.5;
+                }
+                if(rune.get("Accuracy%") == 8 ){
+                    runeValue += 10;
+                }
+            }
+        }
+
+        ////
+        //Bruiser: DEF | HP + CR / CD
+        ////
+        if(mainStat.equalsIgnoreCase("DEF") || mainStat.equalsIgnoreCase("HP")) {
+            if ((rune.containsKey("CRI Rate%") || rune.containsKey("CRI Dmg%")) &&
+                    (rune.containsKey("HP%") || rune.containsKey("DEF%")) && hasSpeed) {
+
+                if (rune.containsKey("CRI Rate%")) {
+                    if (rune.get("CRI Rate%") == 4) {
+                        runeValue += 4;
+                    }
+                    if (rune.get("CRI Rate%") == 5) {
+                        runeValue += 5;
+                    }
+                    if (rune.get("CRI Rate%") == 6) {
+                        runeValue += 6;
+                    }
+                }
+                if (rune.containsKey("CRI Dmg%")) {
+                    if (rune.get("CRI Dmg%") == 4) {
+                        runeValue += 2;
+                    }
+                    if (rune.get("CRI Dmg%") == 5) {
+                        runeValue += 3;
+                    }
+                    if (rune.get("CRI Dmg%") == 6) {
+                        runeValue += 4;
+                    }
+                    if (rune.get("CRI Dmg%") == 7) {
+                        runeValue += 5;
+                    }
+
+                    if (rune.containsKey("DEF%")) {
+                        if (rune.get("DEF%") == 4) {
+                            runeValue += 3;
+                        }
+                        if (rune.get("DEF%") == 5) {
+                            runeValue += 4;
+                        }
+                        if (rune.get("DEF%") == 6) {
+                            runeValue += 4.5;
+                        }
+                        if (rune.get("DEF%") == 7) {
+                            runeValue += 5;
+                        }
+                        if (rune.get("DEF%") == 8) {
+                            runeValue += 6;
+                        }
+                    }
+
+                    if (rune.containsKey("HP%")) {
+                        if (rune.get("HP%") == 4) {
+                            runeValue += 4;
+                        }
+                        if (rune.get("HP%") == 5) {
+                            runeValue += 5;
+                        }
+                        if (rune.get("HP%") == 6) {
+                            runeValue += 5.5;
+                        }
+                        if (rune.get("HP%") == 7) {
+                            runeValue += 6;
+                        }
+                        if (rune.get("HP%") == 8) {
+                            runeValue += 6.5;
+                        }
+                    }
+                }
+            }
+        }
+
+
+            ////
+            //Healer: Def + Hp /// Hp + Acc + Def
+            ////
+            if(hasSpeed && mainStat.equalsIgnoreCase("HP") || mainStat.equalsIgnoreCase("DEF")){
+                if( rune.containsKey("DEF%") || rune.containsKey("HP%") ){
+
+                    if(rune.get("Accuracy%") == 4 ){
+                        runeValue += 2;
+                    }
+                    if(rune.get("Accuracy%") == 5 ){
+                        runeValue += 3;
+                    }
+                    if(rune.get("Accuracy%") == 6 ){
+                        runeValue += 3.5;
+                    }
+                    if(rune.get("Accuracy%") == 7 ){
+                        runeValue += 4;
+                    }
+                    if(rune.get("Accuracy%") == 8 ){
+                        runeValue += 5;
+                    }
+                    if (rune.containsKey("DEF%")) {
+                        if (rune.get("DEF%") == 4) {
+                            runeValue += 3;
+                        }
+                        if (rune.get("DEF%") == 5) {
+                            runeValue += 4;
+                        }
+                        if (rune.get("DEF%") == 6) {
+                            runeValue += 4.5;
+                        }
+                        if (rune.get("DEF%") == 7) {
+                            runeValue += 5;
+                        }
+                        if (rune.get("DEF%") == 8) {
+                            runeValue += 6;
+                        }
+                    }
+
+                    if (rune.containsKey("HP%")) {
+                        if (rune.get("HP%") == 4) {
+                            runeValue += 4;
+                        }
+                        if (rune.get("HP%") == 5) {
+                            runeValue += 5;
+                        }
+                        if (rune.get("HP%") == 6) {
+                            runeValue += 5.5;
+                        }
+                        if (rune.get("HP%") == 7) {
+                            runeValue += 6;
+                        }
+                        if (rune.get("HP%") == 8) {
+                            runeValue += 6.5;
+                        }
+                    }
+                }
+            }
+
+
+            ////
+            //Raid: Res + Cr + Cd /// Res + Hp + Def
+            ////
+
+            ////
+            //SlowNuke: Atk / CR / CD
+            ////
+
+            ////
+            //SlowTank: Def + Hp + Res
+            ////
+
+            ////
+            //SpdNuke: Atk | Spd // CD / CR / (Atk|Spd)
+            ////
+
+
+
+
+            //All require speed except slow nuker && slow Tank
+            //Nuker -- Atk / Cr / CD
+            //Def + Hp /// Hp + Acc + Def-- Healer
+            //Res + Cr + Cd /// Res + Hp + Def -- Raid monster
+
+            //Def + Hp + Res -- R5 Slow Tank
+
+
+            return runeValue;
+        }
+
+
+
+    }

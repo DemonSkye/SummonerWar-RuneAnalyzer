@@ -254,7 +254,7 @@ public class RuneDrop {
                 preferredTypes.add("SlowTank");
                 preferredTypes.add("SpdNuke");
                 if(slot == 1 || slot == 3 || slot ==5) {
-                    keep = org.DemonSkye.wut.RuneType.runeRole.runeRankingOdd(statMap, offset, preferredTypes);
+                    keep = org.DemonSkye.wut.RuneType.runeRole.runeRankingOdd(statMap, offset+1, preferredTypes);
                 }
             }
 
@@ -264,7 +264,7 @@ public class RuneDrop {
                 preferredTypes.add("SlowNuke");
                 preferredTypes.add("SpdNuke");
                 if(slot == 1 || slot == 3 || slot ==5) {
-                    keep = org.DemonSkye.wut.RuneType.runeRole.runeRankingOdd(statMap, offset, preferredTypes);
+                    keep = org.DemonSkye.wut.RuneType.runeRole.runeRankingOdd(statMap, offset+2, preferredTypes);
                 }
             }
 
@@ -294,7 +294,7 @@ public class RuneDrop {
                 preferredTypes.add("SpdNuke");
 
                 if(slot == 1 || slot == 3 || slot ==5) {
-                    keep = org.DemonSkye.wut.RuneType.runeRole.runeRankingOdd(statMap, offset, preferredTypes);
+                    keep = org.DemonSkye.wut.RuneType.runeRole.runeRankingOdd(statMap, offset+1, preferredTypes);
                 }
             }
 
@@ -304,7 +304,7 @@ public class RuneDrop {
                 preferredTypes.add("SlowNuke");
                 preferredTypes.add("SpdNuke");
                 if(slot == 1 || slot == 3 || slot ==5) {
-                    keep = org.DemonSkye.wut.RuneType.runeRole.runeRankingOdd(statMap, offset, preferredTypes);
+                    keep = org.DemonSkye.wut.RuneType.runeRole.runeRankingOdd(statMap, offset+1, preferredTypes);
                 }
             }
 
@@ -316,7 +316,7 @@ public class RuneDrop {
                 preferredTypes.add("SpdNuke");
                 preferredTypes.add("SlowNuke");
                 if(slot == 1 || slot == 3 || slot ==5) {
-                    keep = org.DemonSkye.wut.RuneType.runeRole.runeRankingOdd(statMap, offset, preferredTypes);
+                    keep = org.DemonSkye.wut.RuneType.runeRole.runeRankingOdd(statMap, offset+2, preferredTypes);
                 }
             }
 
@@ -326,7 +326,7 @@ public class RuneDrop {
                 preferredTypes.add("Healer");
                 preferredTypes.add("SpdNuke");
                 if(slot == 1 || slot == 3 || slot ==5) {
-                    keep = org.DemonSkye.wut.RuneType.runeRole.runeRankingOdd(statMap, offset, preferredTypes);
+                    keep = org.DemonSkye.wut.RuneType.runeRole.runeRankingOdd(statMap, offset+2, preferredTypes);
                 }
             }
         }
