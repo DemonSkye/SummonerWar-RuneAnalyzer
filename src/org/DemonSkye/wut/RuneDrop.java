@@ -22,7 +22,7 @@ public class RuneDrop {
         System.out.println("after substr: " + str); //raw string after substr
         Integer grade = Integer.parseInt(str.substring(0, 1));
         str = str.substring(str.indexOf(",") + 1);
-        System.out.println("Grade: " + grade);
+        System.out.println("Grade: " + grade +"*");
 
         Integer value = Integer.parseInt(str.substring(0, str.indexOf(",")));
         str = str.substring(str.indexOf(",") + 1);
@@ -72,25 +72,26 @@ public class RuneDrop {
         String substat3 = "";
         String substat4 = "";
         if (rarity.equalsIgnoreCase("Hero") || rarity.equalsIgnoreCase("Legendary")) {
-            substat3 = str.substring(0, str.indexOf(","));
-            str = str.substring(str.indexOf(",") + 1);
-            System.out.println("Substat3: " + substat3);
+            if (rarity.equalsIgnoreCase("Hero")){
+                substat3 = str.substring(0, str.indexOf(",") );
+                System.out.println("Substat 3: " + substat3);
+            }
+            else {
+                substat3 = str.substring(0, str.indexOf(","));
+                str = str.substring(str.indexOf(",") + 1);
+                System.out.println("Substat3: " + substat3);
+            }
         }
 
         if (rarity.equalsIgnoreCase("Legendary")) {
-            substat4 = str.substring(0, str.length());
+            substat4 = str.substring(0, str.indexOf(","));
             System.out.println("Substat4: " + substat4);
         }
 
         //System.out.println("Grade: " + grade );
         //Only get 5 * legendaries with speed
         if (grade ==5) {
-            if (!str.contains("Legendary") && str.contains("SPD")) {
-                return 1.0;
-            }
-            else{
-                return 0.0;
-            }
+            return 0.0;
         }
 
 
@@ -153,14 +154,12 @@ public class RuneDrop {
             if (rarity.equalsIgnoreCase("Magic")){
                 offset -= 1.0;
             }
-            if (rarity.equalsIgnoreCase("Rare")){
-                offset += 0.0;
-            }
+            if (rarity.equalsIgnoreCase("Rare")){}
             if (rarity.equalsIgnoreCase("Hero")){
                 offset += 2.0;
             }
             if (rarity.equalsIgnoreCase("Legendary")){
-                offset += 5.0;
+                offset += 15.0;
             }
 
 
@@ -173,7 +172,6 @@ public class RuneDrop {
             //SlowNuke
             //SlowTank
             //SpdNuke
-
             List<String> preferredTypes = new ArrayList<>();
             if (type.equalsIgnoreCase("Blade")){
                 preferredTypes.add("Bruiser");

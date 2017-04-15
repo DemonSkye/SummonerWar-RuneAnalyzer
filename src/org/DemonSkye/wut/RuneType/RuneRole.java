@@ -19,7 +19,7 @@ public class RuneRole {
         //Acc / Cr / CD -- acc nuker
         ////
         int accNuke = RuneRoleHelperFunctions.accNukeCount(rune);
-        if (accNuke > 2 || (accNuke >1 && rarity.equalsIgnoreCase("Rare"))) {
+        if (accNuke > 1) {
             if(rune.containsKey("Accuracy%")){
                 accNukeResult += RuneRoleHelperFunctions.accuracyWeight(rune.get("Accuracy%"), 2,2.5,3,3.5,4);
             }
@@ -60,7 +60,7 @@ public class RuneRole {
         //Def + CR / CD / HP-- Bruiser
         ////
         int bruiser = RuneRoleHelperFunctions.bruiserCount(rune);
-        if (bruiser > 2 || (bruiser >1 && rarity.equalsIgnoreCase("Rare"))) {
+        if (bruiser > 1) {
             if(rune.containsKey("DEF%")){
                 bruiserResult += RuneRoleHelperFunctions.defenseWeight(rune.get("DEF%"), 2,3,3.5,4,5);
             }
@@ -88,7 +88,7 @@ public class RuneRole {
         //Def + Hp /// Hp + Acc + Def-- Healer
         //
         int healer = RuneRoleHelperFunctions.healerCount(rune);
-        if (healer >=1) {
+        if (healer >1) {
             if(rune.containsKey("DEF%")){
                 healerResult += RuneRoleHelperFunctions.defenseWeight(rune.get("DEF%"), 3,4,4.5,5,6);
             }
@@ -112,7 +112,7 @@ public class RuneRole {
         //Res + Cr + Cd /// Res + Hp + Def -- Raid monster
         ////
         int raid = RuneRoleHelperFunctions.raidCount(rune);
-        if (raid > 2 || (raid >1 && rarity.equalsIgnoreCase("Rare"))) {
+        if (raid > 1 ) {
             if(rune.containsKey("Resistance%")){
                 raidResult += RuneRoleHelperFunctions.resistanceWeight(rune.get("Resistance%"),1,1.5,3,3.5,4);
             }
@@ -135,7 +135,7 @@ public class RuneRole {
         //SlowNuke: Atk / CR / CD
         ////
         int slowNukeValue = RuneRoleHelperFunctions.slowNukeCount(rune);
-        if(slowNukeValue >=2 || slowNukeValue >=1 && rarity.equalsIgnoreCase("Rare")){
+        if(slowNukeValue >1){
             //Atk valuation in slow nuke rune
             if(rune.containsKey("ATK%")){
                 slowNukeResult += RuneRoleHelperFunctions.attackWeight(rune.get("ATK%"), 1,1,2,2.5,4);
@@ -162,7 +162,7 @@ public class RuneRole {
         //SlowTank: Def + Hp + Res
         ////
         int slowTank = RuneRoleHelperFunctions.slowTankCount(rune);
-        if (slowTank >=2 || slowTank >=1 && rarity.equalsIgnoreCase("Rare") ) {
+        if (slowTank >2 ) {
             if(rune.containsKey("DEF%")){
                 slowTankResult += RuneRoleHelperFunctions.defenseWeight(rune.get("DEF%"), 1,1,3,4,5);
             }
@@ -185,7 +185,7 @@ public class RuneRole {
         //Speedy Nuker -- Spd + One of (Atk / CD) + CR / Speed
         ////
         int speedNuke = RuneRoleHelperFunctions.spdNukeCount(rune);
-        if (speedNuke > 2 || (speedNuke >1 && rarity.equalsIgnoreCase("Rare")) ) {
+        if (speedNuke > 1) {
             speedNukeResult += 2;
 
             if (rune.containsKey("ATK%")) {
@@ -250,7 +250,7 @@ public class RuneRole {
             runeValue+=1;
         }
         if(rune.containsKey("SPD+")){
-            runeValue += RuneRoleHelperFunctions.speedWeight(rune.get("DEF%"), 3,6,8);
+            runeValue += RuneRoleHelperFunctions.speedWeight(rune.get("SPD+"), 3,6,8);
         }
 
         //add additional user specified value.
@@ -277,7 +277,7 @@ public class RuneRole {
         ////
 
         int accNuke = RuneRoleHelperFunctions.accNukeCountMain(mainStat, rune);
-        if (accNuke >= 2 || accNuke >= 1 && rarity.equalsIgnoreCase("Rare")) {
+        if (accNuke >= 2) {
             if (mainStat.equalsIgnoreCase("CRI D")) {
                 accNukeResult += 4;
             }
@@ -302,7 +302,7 @@ public class RuneRole {
         //Bomber: Atk + Acc
         ////
         int bomber = RuneRoleHelperFunctions.bomberCountMain(mainStat, rune);
-        if (bomber >= 2 || bomber >= 1 && rarity.equalsIgnoreCase("Rare")) {
+        if (bomber >= 2) {
             if (rune.containsKey("Accuracy%")) {
                 bomberResult += RuneRoleHelperFunctions.accuracyWeight(rune.get("Accuracy%"), 3, 4, 5, 6, 8);
             }
@@ -321,7 +321,7 @@ public class RuneRole {
         //Bruiser: DEF | HP + CR / CD
         ////
         int bruiser = RuneRoleHelperFunctions.bruiserCountMain(mainStat, rune);
-        if (bruiser >= 2 || bruiser >= 1 && rarity.equalsIgnoreCase("Rare")) {
+        if (bruiser >= 2) {
             if (mainStat.equalsIgnoreCase("CRI D")) {
                 bruiserResult += 4;
             }
@@ -350,7 +350,7 @@ public class RuneRole {
         //Healer: Def + Hp /// Hp + Acc + Def
         ////
         int healer = RuneRoleHelperFunctions.healerCountMain(mainStat, rune);
-        if (healer >= 2 || healer >= 1 && rarity.equalsIgnoreCase("Rare")) {
+        if (healer >= 2) {
 
             if (rune.containsKey("Accuracy%")) {
                 healerResult += RuneRoleHelperFunctions.accuracyWeight(rune.get("Accuracy%"), 2,3,3.5,4,5);
@@ -373,7 +373,7 @@ public class RuneRole {
         //Raid: Res + Cr + Cd /// Res + Hp + Def
         ////
         int raid = RuneRoleHelperFunctions.raidCountMain(mainStat,rune);
-        if(raid >=2 || raid >=1 && rarity.equalsIgnoreCase("Rare")) {
+        if(raid >1 ) {
             if(rune.containsKey("Resistance%")){
                 raidResult += RuneRoleHelperFunctions.resistanceWeight(rune.get("Resistance%"), 3,3,3,3.5,4);
             }
@@ -401,7 +401,7 @@ public class RuneRole {
         //SlowNuke: Atk / CR / CD
         ////
         int slowNuke = RuneRoleHelperFunctions.slowNukeCountMain(mainStat,rune);
-        if(slowNuke >= 2 || slowNuke >=1 && rarity.equalsIgnoreCase("Rare")){
+        if(slowNuke >= 2){
             if(mainStat.equalsIgnoreCase("CRI D")){
                 slowNukeResult += 4;
             }
@@ -424,7 +424,7 @@ public class RuneRole {
         //SlowTank: Def + Hp + Res
         ////
         int slowTank = RuneRoleHelperFunctions.slowTankCountMain(mainStat,rune);
-        if(slowTank >=2 || slowTank >=1 && rarity.equalsIgnoreCase("Rare")){
+        if(slowTank >1){
 
             if (rune.containsKey("DEF%")) {
                 slowTankResult += RuneRoleHelperFunctions.defenseWeight(rune.get("DEF%"), 3, 4, 4.5, 5, 6);
@@ -447,7 +447,7 @@ public class RuneRole {
         //SpdNuke: Atk | Spd // CD / CR / (Atk|Spd)
         ////
         int speedNuke = RuneRoleHelperFunctions.spdNukeCountMain(mainStat,rune);
-        if(speedNuke >=2 || speedNuke >=1 && rarity.equalsIgnoreCase("Rare")){
+        if(speedNuke >1 || speedNuke >=1 && rarity.equalsIgnoreCase("Hero") || rarity.equalsIgnoreCase("Legendary")){
             if(rune.containsKey("ATK%")){
                 speedNukeResult += RuneRoleHelperFunctions.attackWeight(rune.get("ATK%"),3,4,4.5,5,6);
             }
